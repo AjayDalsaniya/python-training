@@ -1,0 +1,76 @@
+TASK 1 : accept two numbers from user and check which number is greater 
+
+TASK 2 : accept two numbers and check entered number is positive or negative 
+
+	accept two numbers and check entered number is even and odd  	
+
+
+TASK 3 : mini project : 
+
+KALYAN JWELLERS : 
+
+M 
+>  65
+purchase > 2lk - 3lk    20% 
+purchase > 3lk - 5lk 	30% 
+purchase > 5lk  	35% 
+
+
+<65
+purchase > 2lk - 3lk    10% 
+purchase > 3lk - 5lk 	20% 
+purchase > 5lk  	25% 
+
+
+
+F
+>  65
+purchase > 2lk - 3lk    25% 
+purchase > 3lk - 5lk 	35% 
+purchase > 5lk  	40% 
+
+
+<65
+purchase > 2lk - 3lk    15% 
+purchase > 3lk - 5lk 	25% 
+purchase > 5lk  	30% 
+
+
+------------------------------------------------------------
+Enter your name : 
+Enter gender : 
+Enter age : 
+
+Enter product : Ring 
+Enter product gram : 20  
+current gold price (1 grm) : 5752
+
+-------------------------------------
+TOTAL GOLD RATE :  XXXXX 
+
+
+Making charges (1 gram)  : 845
+Total Making CHarges :    TOTAL Gram  X  MAKING CHARGES 
+
+---------------------------------------
+TOTAL AMOUNT : GOLD PRICE + TOTAL MAKING CHARG
+
+
+
+DISCOUNT :   25 (AUTOMATIC) 
+DIS- AMOUNT : except (making charges) 
+-----------------------------------------
+total net amount : 
+
+--------------------------------------------
+HINT : variables , input , conditional statements 
+
+
+
+
+
+
+
+
+
+

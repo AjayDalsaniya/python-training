@@ -11,3 +11,12 @@ destop application
 
 #what is python?
 	python is object oriented , interpreter, high level programing language,is used to create a web application.
+
+# How memory is managed in Python?
+	Memory allocation and de-allocation is automatically in python
+
+#What is the purpose continue statement in python
+	continue statement is used to skip current statement
+
+#what are nagative indexes and why are they used?
+negative indexes is used to in python to beging slicing from end of the string.

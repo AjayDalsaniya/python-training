@@ -1,0 +1,42 @@
+1.Why Django should be used for web-development? Explain how you 
+can create a project in Django? 
+
+ans. 
+Django is a high-level Python web framework that enables rapid development of secure and maintainable websites.
+
+ django is powerfull python web framwork 
+	
+	django is basically a high level python  web application framework
+
+        which is contain lots of inbuilt features that will be help ful for advance level webapplication
+
+
+2.How to check installed version of django? 
+
+write python -m django -version 
+
+3.Explain what does django-admin.py make messages command is used 
+for? 
+
+admin.py is used for displaying model of project on admin panel.
+Django admin interface that is by default GUI that how admin interface display. It is used to perform 
+database operation directly from admin interface
+
+4.What is Django URLs?make program to create django urls
+ans.which is contain all the urls of the application
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('members/', views.members, name='members'),
+]
+
+
+5.What is a QuerySet?Write program to create a new Post object in 
+database
+ans. A queryset is a colection of data from a database. a queryset is builtup as a list of objects.
+
+
+
+6.Mention what command line can be used to load data into Django? 
+To load data into Django you have to use the command line Django-admin.py loaddata

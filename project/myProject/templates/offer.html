@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offer</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/offer.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+
+</head>
+<body>
+    <!-- header section start  -->
+
+    <header class="header fixed-top">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+                <nav class="nav">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        {% if current_user %}
+                        <li><a href="{% url 'cart' %}">Cart</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}" id="signin">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+                <div class="icons">
+                    <div id="menu-btn" class="fas fa-bars"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- header section end -->
+
+    <div class="container mt-5">
+        {% if allItem %}
+        <div class="row">
+            <div class="col-md-12">
+                {% for item in allItem %}
+                {% if currentDate < item.offer_idoffer.offer_end_date %}
+                <div class="card shadow product_data">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label class="badge badge-dark" style="font-size: 16px;">Offer</label>
+                                <img src="{{item.item_image.url}}" alt="offerImage" style="height: 280px; width: 320px;">
+                            </div>
+                            <div class="col-md-8">
+                                <h2 class="mb-0">
+                                    {{item.item_name}}
+                                    <label style="font-size: 16px;" class="float-right badge badge-danger">Trending</label>
+                                </h2>
+                                <hr>
+                                <label class="me-3" style="font-size: 1.8rem;">Price : <s>Rs {{item.item_price | stringformat:'d'}}</s></label><br>
+                                <label class="font-weight-bold" style="font-size: 1.8rem;">Offer : <s>Rs {{item.offer_price}}</s></label>
+                                <p class="mt-3" style="font-size: 1.8rem;">
+                                    {{item.item_description}}
+                                </p>
+                                <hr>
+                                <label class="badge badge-success" style="font-size: 1.6rem; margin-top: 10px;">In Stock</label>
+                                <div class="row mt-2">
+                                    <div class="col-md-3" style="padding-top: 10px;">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{item.iditem}}" name="currentItemId" class="item_id">
+                                        <label for="Quantity" style="font-size: 2rem;">Quantity</label>
+                                        <div class="input-group text-center mb-3" style="width: 130px;">
+                                            <button class="input-group-text decrement-btn" style="font-size: 1.6rem;">-</button>
+                                            <input type="text" name="quantity" class="form-control qty-input text-center" value="1" readonly style="font-size: 1.6rem; font-weight: bolder;">
+                                            <button class="input-group-text increment-btn" style="font-size: 1.6rem;">+</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <br>
+                                        <button type="button" class="btn btn-primary me-3 float-start addToCartBtn" style="font-size: 1.8rem; position: absolute; top: 43px;">Add to Cart <i class="fa fa-shopping-cart"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
+                            <h3 style="font-size: 20px;">Offer Description</h3>
+                            <p class="mt-3" style="font-size: 16px;">
+                                {{item.offer_idoffer.offer_description}}
+                            </p>
+                            <h4>Start Date : {{item.offer_idoffer.offer_start_date}}</h4>
+                            <h4>End Date : {{item.offer_idoffer.offer_end_date}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                {% endif %}
+                {% endfor %}
+                {% else %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card shadow product_data">
+                            <div class="card-body">
+                                <h3 style="font-size: 2rem;">No Offer Yet!</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static '/js/alertify.min.js' %}"></script>
+    <script src="{% static '/js/offer.js' %}"></script>
+</body>
+</html>

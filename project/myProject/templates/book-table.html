@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Table</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/bookTable.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+</head>
+<body>
+    <!-- header section start  -->
+
+<header class="header fixed-top">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+            <nav class="nav">
+                <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                {% comment %} <div id="cart-btn" class="fas fa-shopping-cart"></div> {% endcomment %}
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+<!-- header section end -->
+
+<div class="container mt-5">
+    <form action="{% url 'bookTableRes' %}" method="post" id="tableResForm" data-tableres-url="{% url 'ajax_load_tables' %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-7" style="margin-bottom: 10px;">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h1>Book Table</h1>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                {% if current_user.user_first_name %}
+                                <label style="font-size: 2rem;font-weight: bolder;">First Name</label>
+                                <input type="text" class="form-control" name="fname" placeholder="First Name" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" value="{{current_user.user_first_name}}" required>
+                                {% else %}
+                                <label style="font-size: 2rem;font-weight: bolder;">First Name</label>
+                                <input type="text" class="form-control" name="fname" placeholder="First Name" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" required>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                {% if current_user.user_last_name %}
+                                <label style="font-size: 2rem;font-weight: bolder;">Last Name</label>
+                                <input type="text" class="form-control" name="lname" placeholder="Last Name" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" value="{{current_user.user_last_name}}" required>
+                                {% else %}
+                                <label style="font-size: 2rem;font-weight: bolder;">Last Name</label>
+                                <input type="text" class="form-control" name="lname" placeholder="Last Name" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" required>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                {% if current_user.user_email %}
+                                <label style="font-size: 2rem;font-weight: bolder;">Email</label>
+                                <input type="email" class="form-control" name="email" placeholder="Email" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" value="{{current_user.user_email}}" required>
+                                {% else %}
+                                <label style="font-size: 2rem;font-weight: bolder;">Email</label>
+                                <input type="email" class="form-control" name="email" placeholder="Email" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" required>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                {% if current_user.user_mobile %}
+                                <label style="font-size: 2rem;font-weight: bolder;">Phone no</label>
+                                <input type="number" class="form-control" name="mobile" placeholder="Mobile" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" value="{{current_user.user_mobile}}" required>
+                                {% else %}
+                                <label style="font-size: 2rem;font-weight: bolder;">Phone no</label>
+                                <input type="number" class="form-control" name="mobile" placeholder="Mobile" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" pattern="[7-9]{1}[0-9]{9}" onkeypress="if(this.value.length == 10) return false;" required>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <label style="font-size: 2rem;font-weight: bolder;" for="guest">Guest</label><br/>
+                                <select name="guestNumTotal" id="guestNum" class="form-control" style="font-size: 1.5rem;font-weight: bolder; padding: 0 5px 0 5px;" required>
+                                    {% for i in totalGuestNum %}
+                                    <option value="{{i.idguest}}" style="font-size: 1.5rem;font-weight: bolder; padding: 0 5px 0 5px;">{{i.guestNumber}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 mt-4 dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" id="dropdownMenuButton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Select Table
+                                </button>
+                                <div class="dropdown-menu" id="tableTotal" aria-labelledby="dropdownMenuButton">
+
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3" style="margin-bottom: 15px;">
+                                <label style="font-size: 2rem;font-weight: bolder;" for="tables">Select Date</label><br/>
+                                <input type="datetime-local" class="form-control" name="tableResDate" placeholder="select date" style="font-size: 1.5rem; padding: 20px 5px 20px 5px;" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <div class="card shadow">
+                    <div class="card-body card-data">
+                        <h1>Total Payment Details</h1>
+                        <hr>
+                        <h3>Grand Total
+                            <span class="float-right totalTableResCost">Rs 0</span>
+                        </h3>
+                        <input type="hidden" name="payment_mode" value="COD">
+                        <div class="mt-3">
+                            <button type="submit" class="btn btn-success w-100 mt-3" style="font-size: 1.5rem; padding: 10px 0 10px 0;">Book Table Now</button>
+                            <button type="button" class="btn btn-primary w-100 mt-3 payWithRazorpay" style="font-size: 1.5rem; padding: 10px 0 10px 0;">Pay With Razorpay</button>
+                            <div id="paypal-button-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+<script src="{% static '/js/book-table.js' %}"></script>
+<script src="{% static '/js/alertify.min.js' %}"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+alertify.set('notifier','position', 'top-right');
+
+{% for msg in messages %}
+{% if msg.tags == 'success' %}
+    alertify.success('{{msg}}');
+{% else %}
+    alertify.error('{{msg}}');
+{% endif %}
+{% endfor %}
+</script>
+<script>
+    $('#guestNum').change(function (e) { 
+        e.preventDefault();
+        
+        const url = $("#tableResForm").attr("data-tableres-url");
+        const guestId = $(this).val();
+
+        $.ajax({
+            url: url,
+            data: {
+                "guestId": guestId
+            },
+            success: function (data) {
+                $("#tableTotal").html(data)
+            }
+        });
+    });
+</script>
+</body>
+</html>

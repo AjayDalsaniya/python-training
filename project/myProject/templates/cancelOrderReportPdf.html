@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Untitled Document</title>
+<style>
+    div{
+text-align:center;
+    }
+    .center{
+        margin-left:auto;
+        margin-right:auto;
+
+
+    }
+</style>
+</head>
+{% load static %}
+<body>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="center">
+   <tr>
+       <td colspan="2"><img src="http://localhost:8000{% static '/images/logo.jpg' %}" height="80px" width="80px" alt="not" ><font face="Verdana" size="6" color="#613f3c"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Brewer Cafe & Restro</b></font></td>
+       
+   </tr>
+   <tr>
+        <td colspan="2">&nbsp;</td>
+   </tr>
+   <tr>
+    <td width="49%"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <div><font size=7 text-align="center"><strong>Cancel Order Report </strong></font></div>
+    </td>
+   </table>
+
+<tr>
+    <td colspan="2">
+    <table width="100%" border=none cellspacing="10" cellpadding="10" class="center">
+      <tr>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-left:1px solid #333; border-right:1px solid #333;" width="34%" height="32" align="center">User Name </td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Cancel Order Date</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center"> Total Amount:</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:600; font-size:13px; border-top:1px solid #333; border-bottom:1px solid #333; border-right:1px solid #333;" width="30%" align="center">Order Payment Method</td>
+      </tr>
+      {% for item in data.cancelOrder %}
+      <tr>
+        
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{item.user_iduser}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" width="60%" align="center">{{item.cancel_order_date}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{item.total_amount}}</td>
+        <td style="font-family:Verdana, Geneva, sans-serif; font-weight:300; font-size:13px; border-bottom:1px solid #333; border-right:1px solid #333;" align="center">{{item.order_payment_method}}</td>
+        
+      </tr>
+      {% endfor %}
+     
+    </table></td>
+  </tr>

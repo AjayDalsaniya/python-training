@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Admin Panel</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="{% static '/css/all.min.css' %}" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static '/css/sb-admin-2.min.css' %}" rel="stylesheet">
+
+    <style type="text/css">
+        /* Chart.js */
+        @-webkit-keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        @keyframes chartjs-render-animation {
+            from {
+                opacity: 0.99
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .chartjs-render-monitor {
+            -webkit-animation: chartjs-render-animation 0.001s;
+            animation: chartjs-render-animation 0.001s;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper"> <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{% url 'adminPanel' %}">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-mug-hot"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">BREWER <sup>cafe</sup></div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'adminPanel' %}">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Options
+            </div>
+
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'UserAdminPanel' %}">
+                    <i class="fas fa-fw fa-user"></i>
+                    <span>Users</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="true" aria-controls="collapseTwo">
+                    <i class="fas fa-fw fa-tree-city"></i>
+                    <span>Area</span>
+                </a>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Area Details:</h6>
+                        <a class="collapse-item" href="{% url 'allAreaAdmin' %}">All Area</a>
+                        <a class="collapse-item" href="{% url 'addAreaAdminPanel' %}">Add Area</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOrders"
+                    aria-expanded="true" aria-controls="collapseOrders">
+                    <i class="fas fa-fw fa-burger"></i>
+                    <span>Orders</span>
+                </a>
+                <div id="collapseOrders" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Order Details:</h6>
+                        <a class="collapse-item" href="{% url 'allOrderAdmin' %}">All Order</a>
+                        <a class="collapse-item" href="{% url 'allCancelOrderAdmin' %}">All Cancel Order</a>
+                        <a class="collapse-item" href="{% url 'allOrderedItemAdmin' %}">All Ordered Item</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoItemCat"
+                    aria-expanded="true" aria-controls="collapseTwoItemCat">
+                    <i class="fas fa-bowl-food"></i>
+                    <span>Item Category</span>
+                </a>
+                <div id="collapseTwoItemCat" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Item Category Details:</h6>
+                        <a class="collapse-item" href="{% url 'allItemCategoryAdmin' %}">All Item Category</a>
+                        <a class="collapse-item" href="{% url 'addItemCatAdminPanel' %}">Add Item Category</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoItem"
+                    aria-expanded="true" aria-controls="collapseTwoItem">
+                    <i class="fa-solid fa-martini-glass-citrus"></i>
+                    <span>Item</span>
+                </a>
+                <div id="collapseTwoItem" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Item Details:</h6>
+                        <a class="collapse-item" href="{% url 'allItemAdmin' %}">All Item</a>
+                        <a class="collapse-item" href="{% url 'addItemAdminPanel' %}">Add Item</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoOffer"
+                    aria-expanded="true" aria-controls="collapseTwoOffer">
+                    <i class="fa-solid fa-gift"></i>
+                    <span>Offer</span>
+                </a>
+                <div id="collapseTwoOffer" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Offer Details:</h6>
+                        <a class="collapse-item" href="{% url 'allOfferAdmin' %}">All Offer</a>
+                        <a class="collapse-item" href="{% url 'addOfferAdminPanel' %}">Add Offer</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoTableReservation"
+                    aria-expanded="true" aria-controls="collapseTwoTableReservation">
+                    <i class="fa-solid fa-table"></i>
+                    <span>Table Reservation</span>
+                </a>
+                <div id="collapseTwoTableReservation" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Basic Details:</h6>
+                        <a class="collapse-item" href="{% url 'allTableReservationAdmin' %}">Table Reservation</a>
+                        <a class="collapse-item" href="{% url 'allCancelTableReservationAdmin' %}">Cancel Reservation</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'tableDetailsAdminPanel' %}">
+                    <i class="fa-solid fa-table"></i>
+                    <span>Table Details</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoSupplier"
+                    aria-expanded="true" aria-controls="collapseTwoSupplier">
+                    <i class="fa-solid fa-user"></i>
+                    <span>Supplier</span>
+                </a>
+                <div id="collapseTwoSupplier" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Basic Details:</h6>
+                        <a class="collapse-item" href="{% url 'allSupplierAdmin' %}">All Supplier</a>
+                        <a class="collapse-item" href="{% url 'addSupplierAdmin' %}">Add Supplier</a>
+                    </div>
+                </div>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoPurRawMaterial"
+                    aria-expanded="true" aria-controls="collapseTwoPurRawMaterial">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Purchase Raw Material</span>
+                </a>
+                <div id="collapseTwoPurRawMaterial" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Basic Details:</h6>
+                        <a class="collapse-item" href="{% url 'allPurchaseRawMaterialAdmin' %}">Purchase Raw Record</a>
+                        <a class="collapse-item" href="{% url 'addPurchaseRawMaterialAdminData' %}">Add Purchase Raw</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'allRawMaterialAdmin' %}">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Raw Material</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'allPurchaseAdmin' %}">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Purchase</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'allPurchaseRawMaterialReturn' %}">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Purchase Return Raw</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'allPurchaseReturnAdmin' %}">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span>Purchase Return</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwoNotifications"
+                    aria-expanded="true" aria-controls="collapseTwoNotifications">
+                    <i class="fa-solid fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+                <div id="collapseTwoNotifications" class="collapse" aria-labelledby="headingTwo"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Basic Details:</h6>
+                        <a class="collapse-item" href="{% url 'notificationAdmin' %}">All Notifications</a>
+                        <a class="collapse-item" href="{% url 'addNotificationAdminPanel' %}">Add Notifications</a>
+                    </div>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">
+                    <i class="fa-solid fa-money-bill"></i>
+                    <span>Refund</span></a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+
+                                    <b>{{currentAdmin.user_name}}</b>
+
+                                </span>
+                                {% if currentAdmin.user_image %}
+                                <img src="{{currentAdmin.user_image.url}}" class="img-profile rounded-circle" alt=""
+                                    style="height: 45px; width: 45px;">
+                                {% else %}
+                                <img src="{% static '/images/default-avatar.png' %}" class="img-profile rounded-circle"
+                                    alt="" style="height: 45px; width: 45px;">
+                                {% endif %}
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="{% url 'adminProfile' %}">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="{% url 'home' %}">
+                                    <i class="fas fa-home fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Home
+                                </a>
+                                <a class="dropdown-item" href="{% url 'AdminAdd' %}">
+                                    <i class="fas fa-user-plus fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Add Admin
+                                </a>
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="{% url 'Adminlogout' %}">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+
+                <!-- Scroll to Top Button-->
+                <a class="scroll-to-top rounded" href="#page-top" style="display: inline;">
+                    <i class="fas fa-angle-up"></i>
+                </a>
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total
+                                                Registered Admin</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+
+                                                <h4>{{totalAdmin}}</h4>
+
+                                            </div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total Registered Users</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalUser}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-user fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-info shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                Total Items</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalItem}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-martini-glass-citrus fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pending Requests Card Example -->
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Total Offer</div>
+                                            {% if totalOffer %}
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalOffer}}</div>
+                                            {% else %}
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">0</div>
+                                            {% endif %}
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fa-solid fa-gift fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Cafe Notification Data</h1>
+                    </div>
+
+                    <div class="container-fluid">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-4">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold text-dark">Manage Notifications
+                                </h6>
+                            </div>
+
+
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    {% if notification %}
+
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th> Notification Date </th>
+                                                <th> Notification Description </th>
+                                                <th> Edit </th>
+                                                <th> Delete </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for item in notification %}
+                                            <tr>
+                                                <td>
+                                                    {{item.updated_at}}
+                                                </td>
+                                                    
+                                                <td>
+                                                    {{item.notification_description}}
+                                                </td>
+                                                <td>
+                                                    <a href="#notificationEditForm-{{forloop.counter}}" class="btn-success" data-toggle="modal" style="padding: 5px;">Edit</a>
+                                                </td>
+                                                <td>
+                                                    <a href="#notificationDeleteModal-{{forloop.counter}}" class="btn-warning" data-toggle="modal" style="padding: 5px;">Delete</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    {% else %}
+                                    <h4>No Notification!</h4>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {% for i in notification %}
+                    <div class="modal fade" id="notificationEditForm-{{forloop.counter}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Notification Data</h1>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                              </div>
+                              <form action="{% url 'notificationAdminUpdate' i.idnotification %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label>Notification Description</label>
+                                        <textarea name="notificationDesc" class="form-control" cols="30" rows="10" placeholder="Notification Description" required>{{i.notification_description}}</textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" name="Save" class="btn btn-primary">Save</button>
+                                </div>
+                              </form>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% for i in notification %}
+                    <div class="modal fade" id="notificationDeleteModal-{{forloop.counter}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Delete Notification</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure want delete notification?</p>
+                            </div>
+                            <div class="modal-footer">
+                             <input type="button" class="btn btn-dark" data-dismiss="modal" value="Cancel">
+                             <a href="/notificationAdmin/{{i.idnotification}}/delete/" class="btn btn-secondary">Delete</a>
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="container-fluid">
+                        <nav>
+                            {% if notification.has_other_pages %}
+                            <ul class="pagination">
+                                {% if notification.has_previous %}
+                                <a href="?page=1" class="btn btn-outline-secondary mb-4" style="border-radius: 1px; border: 1px solid #d3d3d3;">First</a>
+                                <li class="page-item"><a class="page-link" href="?page={{ notification.previous_page_number }}"><i class="fas fa-angle-double-left"></i></a></li>
+                                {% else %}
+                                <li class="page-item disabled"></li>
+                                {% endif %}
+
+                                {% if notification.number|add:'-2' > 1 %}
+                                <li><a class="page-link" href="?page={{ notification.number|add:'-2' }}">&hellip;</a></li>
+                                {% endif %}
+
+                                {% for i in notification.paginator.page_range %}
+                                
+                                {% if notification.number == i %}
+                                <li class="page-item active"><span class="page-link">{{ i }}<span class="sr-only"></span></span></li>
+                                {% elif i > notification.number|add:'-2' and i < notification.number|add:'2' %}
+                                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+
+                                {% if notification.paginator.num_pages > notification.number|add:'2' %}
+                                <li><a class="page-link" href="?page={{ notification.number|add:'-2' }}">&hellip;</a></li>
+                                <li><a href="?page={{ i }}"></a></li>
+                                <li><a class="page-link" href="?page={{ notification.paginator.num_pages }}">{{ notification.paginator.num_pages }}</a></li>
+                                {% endif %}
+
+
+                                {% if notification.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ notification.next_page_number }}"><i class="fas fa-angle-double-right"></i></a></li>
+                                <a href="?page={{ notification.paginator.num_pages }}" class="btn btn-outline-secondary mb-4" style="border-radius: 1px; border: 1px solid #d3d3d3;">Last</a>
+                                {% else %}
+                                <li class="page-item disabled"></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+                        </nav>
+                    </div>
+                    <!-- /.container-fluid -->
+
+                    <!-- /.container-fluid -->
+
+                    <!-- Footer -->
+
+                    <!-- End of Footer -->
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span style="font-size: 20px;">Copyright © Brewer Cafe & Restro 2023</span>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- End of Content Wrapper -->
+    </div>
+    <!-- Bootstrap core JavaScript-->
+    <script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="{% static '/js/jquery.easing.min.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static '/js/sb-admin-2.min.js' %}"></script>
+
+    <!-- Page level plugins -->
+    <script src="{% static '/js/chart.js/Chart.min.js' %}"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="{% static '/js/demo/chart-area-demo.js' %}"></script>
+    <script src="{% static '/js/demo/chart-pie-demo.js' %}"></script>
+    <script src="{% static '/js/alertify.min.js' %}"></script>
+    <script>
+{% for msg in messages %}
+    alert('{{msg}}')
+{% endfor %}
+    </script>
+</body>
+
+</html>

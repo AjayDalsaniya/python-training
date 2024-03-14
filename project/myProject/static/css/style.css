@@ -1,0 +1,708 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap");
+* {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none !important;
+  transition: all 0.2s linear;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+}
+html::-webkit-scrollbar {
+  width: 1rem;
+}
+html::-webkit-scrollbar-track {
+  background: transparent;
+}
+html::-webkit-scrollbar-thumb {
+  background: #512a10;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    transform: translateY(-2rem);
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    transform: translateY(-2rem);
+    opacity: 0;
+  }
+}
+section {
+  padding: 5rem 1rem;
+}
+
+.link-btn {
+  margin-top: 1rem;
+  padding: 1rem 3rem;
+  display: inline-block;
+  border: 0.1rem solid #512a10;
+  color: #512a10;
+  background: none;
+  cursor: pointer;
+  font-size: 1.7rem;
+  font-weight: bolder;
+}
+.link-btn:hover {
+  background: #512a10;
+  color: #fff;
+}
+
+.read-more-link-btn {
+  margin-top: 1rem;
+  padding: 1rem 3rem;
+  display: inline-block;
+  border-top: hidden;
+  border-left: hidden;
+  border-right: hidden;
+  border-bottom: 0.1rem solid #512a10;
+  color: #512a10;
+  background: none;
+  font-size: 1.7rem;
+  font-weight: bolder;
+}
+
+.slink-btn {
+  margin-top: 1rem;
+  padding: 1rem 3rem;
+  display: inline-block;
+  border: 0.1rem solid #512a10;
+  color: #512a10;
+  background: none;
+  cursor: pointer;
+  font-size: 1.7rem;
+  font-weight: bolder;
+}
+.slink-btn:hover {
+  background: #512a10;
+  color: #fff;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 4rem;
+  font-size: 3rem;
+  text-transform: capitalize;
+  color: #222;
+}
+
+.header {
+  z-index: 1000;
+  padding: 4rem 0;
+}
+.header.active {
+  padding: 0 0;
+  background: #512a10;
+}
+.header .logo {
+  font-size: 20px;
+  color: #fff;
+  font-weight: bolder;
+  position: relative;
+  top: -3px;
+}
+.header .nav ul {
+  list-style: none;
+}
+.header .nav ul li {
+  position: relative;
+  float: left;
+}
+.header .nav ul li:hover > ul {
+  display: initial;
+}
+.header .nav ul li a {
+  font-size: 20px;
+  padding: 20px 15px 20px 15px;
+  color: #fff;
+  display: block;
+}
+.header .nav ul li a:hover {
+  text-decoration: underline !important;
+  text-underline-offset: 0.5rem;
+}
+.header .nav ul li ul {
+  position: absolute;
+  left: 0;
+  width: 200px;
+  background: #512a10;
+  display: none;
+}
+.header .nav ul li ul li {
+  width: 100%;
+  border-top: 1px solid #000;
+  font-size: 20px;
+}
+.header .nav ul li ul li a {
+  font-size: 17px;
+  padding: 15px 15px 15px 15px;
+}
+.header .icons div {
+  font-size: 2.5rem;
+  color: #fff;
+  margin-left: 2rem;
+  cursor: pointer;
+}
+.header #cart-btn {
+  position: relative;
+  top: -7px;
+}
+.header #menu-btn {
+  display: none;
+}
+
+.login-form {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1100;
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.login-form.active {
+  display: flex;
+}
+.login-form form {
+  width: 50rem;
+  padding: 4rem;
+  background: #fff;
+  text-align: center;
+  position: relative;
+  -webkit-animation: fadeIn 0.2s linear;
+          animation: fadeIn 0.2s linear;
+}
+.login-form form #close-login-form {
+  position: absolute;
+  top: -4rem;
+  right: 0;
+  font-size: 3rem;
+  cursor: pointer;
+  color: #fff;
+}
+.login-form form #close-login-form:hover {
+  transform: rotate(90deg);
+}
+.login-form form .logo {
+  font-size: 2.5rem;
+  color: #512a10;
+  font-weight: bolder;
+}
+.login-form form h3 {
+  padding: 1rem 0;
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #222;
+  margin-top: 1rem;
+}
+.login-form form .box {
+  width: 100%;
+  padding: 0.8rem 1.4rem;
+  border: 0.1rem solid #512a10;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  margin: 1rem 0;
+}
+.login-form form input:is(:focus, :valid) ~ i {
+  color: #512a10;
+}
+.login-form form i {
+  cursor: pointer;
+}
+.login-form form .flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.login-form form .flex #remember-me {
+  accent-color: #512a10;
+}
+.login-form form .flex label {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.login-form form .flex a {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  color: #512a10;
+  margin-left: auto;
+}
+.login-form form .flex a:hover {
+  text-decoration: underline !important;
+}
+.login-form form .link-btn {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.login-form form .account {
+  padding: 1.5rem 0.5rem;
+  background: #eee;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+  font-weight: bolder;
+}
+.login-form form .account a {
+  color: #512a10;
+}
+.login-form form .account a:hover {
+  text-decoration: underline !important;
+}
+
+.signup-form {
+  position: fixed;
+  top: 0;
+  left: -475px;
+  z-index: 1100;
+  height: 105%;
+  width: 170%;
+  background: rgba(0, 0, 0, 0.8);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.signup-form.active {
+  display: flex;
+}
+.signup-form form {
+  width: 75rem;
+  padding: 1.5rem 4rem 1.5rem 4rem;
+  background: #fff;
+  position: relative;
+  -webkit-animation: fadeIn 0.2s linear;
+          animation: fadeIn 0.2s linear;
+}
+.signup-form form #close-signup-form {
+  position: absolute;
+  top: -4rem;
+  right: 0;
+  font-size: 3rem;
+  cursor: pointer;
+  color: #fff;
+}
+.signup-form form #close-signup-form:hover {
+  transform: rotate(90deg);
+}
+.signup-form form .title {
+  font-size: 2.5rem;
+  color: #512a10;
+  font-weight: bolder;
+  text-align: center;
+}
+.signup-form form h3 {
+  padding: 1rem 0;
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #222;
+  margin-top: 0.3rem;
+  text-align: center;
+}
+.signup-form form .user-details {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.signup-form form .user-details .input-box {
+  margin: 12px 0 12px 0;
+  width: calc(50% - 20px);
+}
+.signup-form form .user-details .input-box input {
+  padding: 1.2rem 1.4rem;
+  height: 35px;
+  width: 100%;
+  border: 0.1rem solid #512a10;
+  font-size: 1.6rem;
+  font-weight: bolder;
+}
+.signup-form form .user-details .input-box .showHidePw1 {
+  cursor: pointer;
+}
+.signup-form form .flex {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+.signup-form form .flex #remember-me {
+  accent-color: #512a10;
+}
+.signup-form form .flex label {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+  cursor: pointer;
+}
+.signup-form form .slink-btn {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.signup-form form .account {
+  padding: 1.5rem 0.5rem;
+  background: #eee;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+  font-weight: bolder;
+  text-align: center;
+}
+.signup-form form .account a {
+  color: #512a10;
+}
+.signup-form form .account a:hover {
+  text-decoration: underline !important;
+}
+
+.home {
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(../images/home-bg.jpg) no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.home h3 {
+  padding: 1rem 0;
+  letter-spacing: 0.1rem;
+  font-size: 3rem;
+  color: #fff;
+}
+.home .link-btn {
+  color: #fff;
+  border-color: #fff;
+}
+
+.about span {
+  font-size: 2.5rem;
+  color: #512a10;
+}
+.about h3 {
+  padding-top: 1rem;
+  font-size: 3rem;
+  text-transform: capitalize;
+  color: #222;
+}
+.about p {
+  padding: 1rem 0;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+}
+.about .icons-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 1.5rem;
+}
+.about .icons-container .icons {
+  padding: 2rem;
+  background: #eee;
+  text-align: center;
+  flex: 1 1 16rem;
+}
+.about .icons-container .icons i {
+  font-size: 5rem;
+  margin-bottom: 2rem;
+  color: #512a10;
+}
+.about .icons-container .icons h3 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  color: #222;
+}
+
+.menu {
+  background: #eee;
+}
+.menu .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+}
+.menu .box-container .box {
+  text-align: center;
+  padding: 3rem 2rem;
+  border-radius: 0.5rem;
+}
+.menu .box-container .box:hover {
+  background: #fff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  transform: translateY(-1rem);
+}
+.menu .box-container .box img {
+  height: 180px;
+  border-radius: 10%;
+  width: 180px;
+  margin-bottom: 2rem;
+}
+.menu .box-container .box h3 {
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #222;
+}
+.menu .box-container .box p {
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+}
+
+.contact {
+  background: #eee;
+}
+.contact .contact-info-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+  margin-bottom: 4rem;
+}
+.contact .contact-info-container .box {
+  border: 0.1rem solid #512a10;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+.contact .contact-info-container .box i {
+  height: 6rem;
+  width: 6rem;
+  line-height: 6rem;
+  border: 0.1rem solid #512a10;
+  color: #512a10;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.contact .contact-info-container .box i:hover {
+  background: #512a10;
+  color: #fff;
+}
+.contact .contact-info-container .box h3 {
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #222;
+  padding: 1rem 0;
+}
+.contact .contact-info-container .box p {
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+}
+.contact form h3 {
+  font-size: 3rem;
+  text-transform: capitalize;
+  color: #222;
+  padding-bottom: 1rem;
+}
+.contact form .box {
+  padding: 0.8rem 1.4rem;
+  margin: 0.7rem 0;
+  border: 0.1rem solid #512a10;
+  font-size: 1.6rem;
+  font-weight: bolder;
+  width: 100%;
+}
+.contact form .box:focus {
+  background: #512a10;
+  color: #fff;
+}
+.contact form .box:focus::-moz-placeholder {
+  color: #eee;
+}
+.contact form .box:focus:-ms-input-placeholder {
+  color: #eee;
+}
+.contact form .box:focus::placeholder {
+  color: #eee;
+}
+.contact form textarea {
+  height: 15rem;
+  resize: none;
+}
+
+.gallery {
+  margin-bottom: 20px;
+}
+.gallery .box-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+  gap: 2rem;
+}
+.gallery .box-container .box {
+  overflow: hidden;
+  position: relative;
+  height: 25rem;
+}
+.gallery .box-container .box:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+  border: 0.1rem solid #512a10;
+}
+.gallery .box-container .box:hover img {
+  transform: translateY(-100%);
+}
+.gallery .box-container .box:hover .content {
+  transform: translateY(0);
+}
+.gallery .box-container .box img {
+  height: 100%;
+  width: 100%;
+}
+.gallery .box-container .box .content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #fff;
+  text-align: center;
+  padding: 3rem 2rem;
+  height: 100%;
+  width: 100%;
+  transform: translateY(100%);
+  padding-top: 4rem;
+}
+.gallery .box-container .box .content h3 {
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #222;
+}
+.gallery .box-container .box .content p {
+  padding: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: bolder;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 0;
+}
+
+.footer {
+  text-align: center;
+}
+.footer .logo {
+  font-size: 3rem;
+  color: #512a10;
+  font-weight: bolder;
+}
+.footer .credit {
+  margin: 2rem 0;
+  font-size: 2rem;
+  text-transform: capitalize;
+  color: #222;
+}
+.footer .share {
+  margin-top: 2rem;
+}
+.footer .share a {
+  height: 5rem;
+  width: 5rem;
+  line-height: 5rem;
+  font-size: 2rem;
+  border: 0.1rem solid #512a10;
+  color: #512a10;
+  margin: 0 0.3rem;
+}
+.footer .share a:hover {
+  background: #512a10;
+  color: #fff;
+}
+
+.alertify-notifier .ajs-message {
+  font-size: 16px;
+}
+
+@media (max-width: 991px) {
+  html {
+    font-size: 55%;
+    scroll-padding-top: 8rem;
+  }
+  .home h3 {
+    font-size: 2rem;
+  }
+  section {
+    padding: 3rem 0;
+  }
+}
+@media (max-width: 768px) {
+  .login-form form {
+    padding: 3rem 2rem;
+  }
+  .login-form form h3 {
+    font-size: 1.7rem;
+  }
+  .header {
+    padding: 4rem 2rem;
+  }
+  .header.active {
+    padding: 2rem;
+  }
+  .header #menu-btn {
+    display: inline-block;
+  }
+  .header #menu-btn.fa-times {
+    transform: rotate(180deg);
+  }
+  .header .nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-flow: column;
+    padding: 1rem 0;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+            clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  }
+  .header .nav.active {
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  .header .nav ul li {
+    width: 100%;
+  }
+  .header .nav ul li a {
+    margin: 1rem 2rem;
+    color: #222;
+  }
+  .header .nav ul li ul {
+    position: relative;
+    width: 100%;
+  }
+  .header .nav ul li ul li {
+    background: #512a10;
+  }
+  .header .nav ul li ul li a {
+    color: #fff;
+  }
+  .contact .map {
+    height: 25rem;
+  }
+}
+@media (max-width: 450px) {
+  html {
+    font-size: 55%;
+  }
+}/*# sourceMappingURL=style.css.map */

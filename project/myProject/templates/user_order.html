@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Page</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/user_order.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+</head>
+<body>
+    <!-- header section start  -->
+
+<header class="header fixed-top">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+            <nav class="nav">
+                <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                {% comment %} <div id="cart-btn" class="fas fa-shopping-cart"></div> {% endcomment %}
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+<!-- header section end -->
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h1>My Orders</h1>
+                </div>
+                <div class="card-body card-data">
+                    {% if userOrderData %}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Order Placed</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Tracking Number</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Total Price</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Status</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in userOrderData %}
+                            <tr class="product_data">
+                                {% csrf_token %}
+                                <input type="hidden" class="order_tracking_no" value="{{item.tracking_no}}">
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.created_at}}</td>
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.tracking_no}}</td>
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.total_amount}}</td>
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.order_status}}</td>
+                                <td>
+                                    {% if item.is_cancel_order == 0%}
+                                    <a href="{% url 'orderview' item.tracking_no %}" class="btn btn-primary mr-3" style="font-weight: bolder; font-size: 1.5rem;">View</a>
+                                    <a href="{% url 'orderInvoice' item.tracking_no %}" class="btn btn-primary mr-3" style="font-weight: bolder; font-size: 1.5rem;">Invoice</a>
+                                   
+                                    <button class="btn btn-danger delete-order" style="font-size: 1.5rem;">Cancel</button>
+                                    {% else %}
+                                    <h4>Cancelled</h4>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        {% else %}
+                        <h3>No Order Placed.!</h3>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/alertify.min.js' %}"></script>
+<script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+<script type="text/javascript">
+
+$('.delete-order').click(function (e) { 
+    e.preventDefault();
+
+    let confirmation = confirm("Are you sure you want to cancel order?");
+
+    var order_id = $(this).closest('.product_data').find('.order_tracking_no').val();
+    var token = $('input[name=csrfmiddlewaretoken]').val();
+
+    if(confirmation){
+        $.ajax({
+            method: "POST",
+            url: "/cancelOrder",
+            data: {
+                'order_id':order_id,
+                csrfmiddlewaretoken:token
+            },
+            success: function (response) {
+                alertify.set('notifier','position', 'top-right');
+                $('.card-data').load(location.href + " .card-data");
+                if (response.status) {
+                    alertify.success(response.status);
+                }else{
+                    alertify.error(response.data);
+                }
+            }
+        });
+    }
+
+});
+</script>
+</body>
+</html>

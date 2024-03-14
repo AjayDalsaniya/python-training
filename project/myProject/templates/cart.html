@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/cart.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+</head>
+<body>
+    
+<!-- header section start  -->
+
+<header class="header fixed-top">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+            <nav class="nav">
+                <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                {% comment %} <div id="cart-btn" class="fas fa-shopping-cart"></div> {% endcomment %}
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+<!-- header section end -->
+
+<div class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow">
+                    <div class="card-body card-data">
+                        {% if userCart %}
+                            {% for cartItem in userCart %}
+                                <div class="row product_data">
+                                    <div class="col-md-2 my-auto">
+                                        <img src="{{cartItem.item_iditem.item_image.url}}" alt="Image here" height="90px" width="90px">
+                                    </div>
+                                    <div class="col-md-3 my-auto">
+                                        <h3>{{cartItem.item_iditem.item_name}}</h3>
+                                    </div>
+                                    <div class="col-md-2 my-auto">
+                                        <h3>Rs {{cartItem.item_iditem.item_price}}</h3>
+                                    </div>
+                                    <div class="col-md-3 my-auto">
+                                        {% csrf_token %}
+                                        <input type="hidden" class="item_id" value="{{cartItem.item_iditem.iditem}}">
+                                        <b><label for="Quantity" style="font-size: 1.5rem;">Quantity</label></b>
+                                            <div class="input-group text-center mb-3" style="width: 130px;">
+                                                <button class="input-group-text changeQuantity decrement-btn" style="font-size: 1.7rem;"><b>-</b></button>
+                                                <input type="text" name="quantity" class="form-control qty-input text-center" value="{{cartItem.item_qty}}" style="font-size: 1.7rem; font-weight: bolder;" readonly>
+                                                <button class="input-group-text changeQuantity increment-btn" style="font-size: 1.7rem;"><b>+</b></button>
+                                            </div>
+                                    </div>
+                                    <div class="col-md-2 my-auto my-data">
+                                        <button class="btn btn-danger delete-cart-item" style="font-size: 1.5rem; position: relative; top: 8px;"><i class="fa fa-trash"></i> Remove</button>
+                                    </div>
+                                </div>
+                                <hr>
+                            {% endfor %}
+                            <a href="{% url 'checkout' %}" class="btn btn-outline-success" style="font-size: 1.5rem;">Checkout</a>
+                        {% else %}
+                        <h1>Your cart is empty!</h1>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+<script src="{% static '/js/alertify.min.js' %}"></script>
+<script src="{% static '/js/itemDetail.js' %}"></script>
+</body>
+</html>

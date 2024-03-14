@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{itemName.item_name}}</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/itemDetails.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+
+</head>
+
+<body>
+
+    <!-- header section start  -->
+
+    <header class="header fixed-top">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+                <nav class="nav">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        {% if current_user %}
+                        <li><a href="{% url 'cart' %}">Cart</a></li>
+                        {% elif admin %}
+                        <li></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}" id="signin">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+                <div class="icons">
+                    <div id="menu-btn" class="fas fa-bars"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- header section end -->
+
+    <div class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow product_data">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <img src="{{itemName.item_image.url}}" alt="image"
+                                        style="height: 280px; width: 320px;">
+                                </div>
+                                <div class="col-md-8">
+                                    <h1 class="mb-0" style="font-size: 2.5rem;">
+                                        {{itemName.item_name}}
+                                    </h1>
+                                    <hr>
+                                    <label class="me-3" style="font-size: 2.5rem;">Price : <s>Rs {{itemName.item_price | stringformat:'d'}}</s></label>
+                                    <p class="mt-3" style="font-size: 2.5rem;">
+                                        {{itemName.item_description}}
+                                    </p>
+                                    <hr>
+                                    <label class="badge bg-success" style="font-size: 2rem;">In Stock</label>
+                                    <div class="row mt-2">
+                                        <div class="col-md-3">
+                                            {% csrf_token %}
+                                            <input type="hidden" value="{{itemName.iditem}}" class="item_id">
+                                            <label for="Quantity" style="font-size: 2rem;">Quantity</label>
+                                            <div class="input-group text-center mb-3" style="width: 130px;">
+                                                <button class="input-group-text decrement-btn"
+                                                    style="font-size: 2rem;">-</button>
+                                                <input type="text" name="quantity"
+                                                    class="form-control qty-input text-center" value="1"
+                                                    style="font-size: 2rem;" readonly>
+                                                <button class="input-group-text increment-btn"
+                                                    style="font-size: 2rem;">+</button>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9" style="font-size: 2.2rem;">
+                                            <br />
+                                            <button type="button" class="btn btn-primary me-3 float-start addToCartBtn"
+                                                style="font-size: 2rem;">Add to Cart <i
+                                                    class="fa fa-shopping-cart"></i></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <hr>
+                                <h3 style="font-size: 3rem;">Description</h3>
+                                <p class="mt-3" style="font-size: 2rem;">
+                                    {{itemName.item_description}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="review-rating-form">
+        <div id="close-review-rating-form" class="fas fa-times"></div>
+        <form action="{% url 'submit_review' itemName.iditem %}" method="post">
+            {% csrf_token %}
+            <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot"></i> let's start a new great day! </a>
+            <div>
+                <label style="font-size: 1.8rem; font-weight: bolder; margin-bottom: .7rem; margin-top: 1.5rem;">How do
+                    you rate this item!?</label>
+                <br>
+                <div class="rate" style="margin-bottom: .5rem;">
+                    <input type="radio" name="rating" id="rating10" value="5"><label for="rating10" title="5"></label>
+                    <input type="radio" name="rating" id="rating9" value="4.5"><label for="rating9" title="4.5"
+                        class="half"></label>
+                    <input type="radio" name="rating" id="rating8" value="4"><label for="rating8" title="4"></label>
+                    <input type="radio" name="rating" id="rating7" value="3.5"><label for="rating7" title="3.5"
+                        class="half"></label>
+                    <input type="radio" name="rating" id="rating6" value="3"><label for="rating6" title="3"></label>
+                    <input type="radio" name="rating" id="rating5" value="2.5"><label for="rating5" title="2.5"
+                        class="half"></label>
+                    <input type="radio" name="rating" id="rating4" value="2"><label for="rating4" title="2"></label>
+                    <input type="radio" name="rating" id="rating3" value="1.5"><label for="rating3" title="1.5"
+                        class="half"></label>
+                    <input type="radio" name="rating" id="rating2" value="1"><label for="rating2" title="1"></label>
+                    <input type="radio" name="rating" id="rating1" value="0.5"><label for="rating1" title="0.5"
+                        class="half"></label>
+                </div>
+                <br>
+                <span style="font-size: 1.8rem; font-weight: bolder;">Review Title</span>
+                {% if currentUserReview %}
+                <input type="text" class="form-control" name="subject"
+                    style="padding: 1.5rem 1.5rem 1.5rem 1rem; font-size: 1.5rem;" value="{{currentUserReview.subject}}" required>
+                    <br>
+                <span style="font-size: 1.8rem; font-weight: bolder;">Review Description</span>
+                <textarea name="review" rows="4" class="form-control" style="font-size: 1.5rem;" value="{{currentUserReview.review_description}}" required>{{currentUserReview.review_description}}</textarea>
+                <br>
+                <input type="submit" value="Update review" class="review-btn">
+                {% else %}
+                <input type="text" class="form-control" name="subject"
+                    style="padding: 1.5rem 1.5rem 1.5rem 1rem; font-size: 1.5rem;" required>
+                <br>
+                <span style="font-size: 1.8rem; font-weight: bolder;">Review Description</span>
+                <textarea name="review" rows="4" class="form-control" style="font-size: 1.5rem;" required></textarea>
+                <br>
+                <input type="submit" value="Add review" class="review-btn">
+                {% endif %}
+            </div>
+        </form>
+    </div>
+    <div class="container w-90">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Customer Reviews</h1>
+            </div>
+        </div>
+    </div>
+    <div class="py-5">
+        <div class="container w-100">
+            {% if usersReview %}
+            {% for item in usersReview %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    {% if item.user_iduser.user_image %}
+                                    <img src="{{item.user_iduser.user_image.url}}" alt="reviewImage"
+                                        class="rounded-circle" height="70px" width="70px">
+                                    {% else %}
+                                    <img src="{% static '/images/default-avatar.png' %}" alt="reviewImage"
+                                        class="rounded-circle" height="70px" width="70px">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <h1 class="pl-2" style="font-size: 2rem; font-weight: bolder; padding-top: 25px;">
+                                        {{item.user_iduser.user_name}}
+                                    </h1>
+                                </div>
+                                <div class="col-md-9" style="font-size: 1.7rem;">
+                                    <span class="text-muted float-md-right p-1">
+                                        {{item.reviewDate}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div style="padding: 20px 0 0 15px; font-size: 1.7rem;">
+                                {{item.subject}}
+                            </div>
+                            <div style="padding: 20px 0 0 15px; font-size: 1.7rem;">
+                                Rating : {{item.rating_value}} <i class="fa-solid fa-star" style="color: #ffb503;"></i>
+                            </div>
+                            <div class="" style="padding:15px 0 0 15px;">
+                                <p style="font-size: 1.7rem;">
+                                    {{item.review_description}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <h3>No Reviews.!</h3>
+            <br>
+            {% endif %}
+            {% if current_user %}
+            {% if currentUserReview %}
+            <div id="userReview-btn" class="btn btn-primary float-left text-white" style="font-weight: bolder; font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-comment"></i> Update Review</div>
+            {% else %}
+            <div id="userReview-btn" class="btn btn-primary float-left text-white" style="font-weight: bolder; font-size: 1.5rem; margin-bottom: 20px;"><i class="fas fa-comment"></i> Add Review</div>
+            {% endif %}
+            {% elif admin %}
+            {% endif %}
+        </div>
+    </div>
+    <script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static '/js/alertify.min.js' %}"></script>
+    <script src="{% static '/js/itemDetail.js' %}"></script>
+<script>
+alertify.set('notifier','position', 'top-right');
+{% for msg in messages %}
+{% if msg.tags == 'success' %}
+        alertify.success('{{msg}}');
+{% else %}
+        alertify.error('{{msg}}');
+{% endif %}
+{% endfor %}
+</script>
+</body>
+
+</html>

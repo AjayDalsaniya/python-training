@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/userOrderDetails.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+</head>
+<body>
+<!-- header section start  -->
+
+<header class="header fixed-top">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+            <nav class="nav">
+                <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                {% comment %} <div id="cart-btn" class="fas fa-shopping-cart"></div> {% endcomment %}
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+<!-- header section end -->
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h1 class="mb-0">Order View
+                        <a href="{% url 'my-orders' %}" class="btn btn-warning float-right text-white" style="font-weight: bolder; font-size: 1.5rem;"><i class="fa fa-reply"></i> Back</a>
+                    </h1>
+                </div>
+                <div class="card-body">
+                   <div class="row">
+                        <div class="col-md-6">
+                            <h3>Shippng Details</h3>
+                            <hr>
+                            <label class="mt-2" style="font-weight: bolder; font-size: 1.5rem;">First Name</label>
+                            <div class="border p-1" style="font-weight: 500; font-size: 1.5rem;">
+                                {{userOrderData.orderfname}}
+                            </div>
+                            <label class="mt-2" style="font-weight: bolder; font-size: 1.5rem;">Last Name</label>
+                            <div class="border p-1" style="font-weight: 500; font-size: 1.5rem;">
+                                {{userOrderData.orderlname}}
+                            </div>
+                            <label class="mt-2" style="font-weight: bolder; font-size: 1.5rem;">Email</label>
+                            <div class="border p-1" style="font-weight: 500; font-size: 1.5rem;">
+                                {{userOrderData.orderemail}}
+                            </div>
+                            <label class="mt-2" style="font-weight: bolder; font-size: 1.5rem;">Mobile</label>
+                            <div class="border p-1" style="font-weight: 500; font-size: 1.5rem;">
+                                {{userOrderData.ordermobile}}
+                            </div>
+                            <label class="mt-2" style="font-weight: bolder; font-size: 1.5rem;">Address</label>
+                            <div class="border p-1" style="font-weight: 500; font-size: 1.5rem;">
+                                {{userOrderData.order_delivery_address}} , 
+                                {{userOrderData.city}}
+                            </div>
+                            <label class="mt-2" style="font-weight: bolder; font-size: 1.5rem;">Zip Code</label>
+                            <div class="border p-1" style="font-weight: 500; font-size: 1.5rem;">
+                                {{userOrderData.area_pincode.pincode}}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <h3>Item Details</h3>
+                            <hr>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="font-weight: bolder; font-size: 1.8rem;">Name</th>
+                                        <th style="font-weight: bolder; font-size: 1.8rem;">Quantity</th>
+                                        <th style="font-weight: bolder; font-size: 1.8rem;">Price</th>
+                                        <th style="font-weight: bolder; font-size: 1.8rem;">Image</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in userOrderDetails %}
+                                    <tr>b
+                                        <td style="font-weight: 500; font-size: 1.5rem;">{{item.item_iditem.item_name}}</td>
+                                        <td style="font-weight: 500; font-size: 1.5rem;">{{item.quantity}}</td>
+                                        <td style="font-weight: 500; font-size: 1.5rem;">{{item.price}}</td>
+                                        <td style="font-weight: 500; font-size: 1.5rem;">
+                                            <img src="{{item.item_iditem.item_image.url}}" alt="productimage" height="50px" width="50px">
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <h4 class="mb-3"> Grand Total :
+                                 <span class="float-right"> {{userOrderData.total_amount}}</span>
+                            </h4>
+                            <h5 class="border p-2" style="font-weight: 500; font-size: 1.5rem;">Payment Mode : {{userOrderData.order_payment_method}}</h5>
+                            <h5 class="border p-2" style="font-weight: 500; font-size: 1.5rem;">Order Status : {{userOrderData.order_status}}</h5>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

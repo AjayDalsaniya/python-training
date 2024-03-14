@@ -1,0 +1,139 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+    display: flex;
+    height: 115vh;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)), url(../images/login_page.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 50px;
+    border-radius: 5px;
+    margin-top: 30px;
+}
+
+.container .title{
+    font-size: 1.8rem;
+    font-weight: bolder;
+    color: #512a10;
+    text-align: center;
+    position: relative;
+}
+
+.container h3{
+    padding: 1rem 0;
+    margin: .3rem;
+    text-align: center;
+    color: black;
+    text-transform: capitalize;
+    font-size: 1.5rem;
+}
+
+.container form .user-details{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 10px 0 5px 0;
+}
+
+form .user-details .input-box{
+    margin-bottom: 15px;
+    width: calc(100% / 2 - 20px);
+}
+
+.user-details .input-box input{
+    height: 45px;
+    width: 100%;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    font-weight: bolder;
+    transition: all 0.3s ease;
+}
+
+.user-details .input-box input:focus{
+    border-color: #512a10;
+}
+
+form .flex{
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    margin: 0 0 .7rem 0;
+}
+
+.flex #remember-me{
+    accent-color: #512a10;
+}
+
+.flex label{
+    font-size: 1rem;
+    font-weight: bolder;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 0;
+}
+
+.slink-btn{
+    padding: 0.5rem 1.5rem;
+    display: inline-block;
+    border: .1rem solid #512a10;
+    color:#512a10;
+    background: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bolder;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.slink-btn:hover{
+    background: #512a10;
+    color: white;
+}
+
+.account{
+    padding: .5rem 1.5rem;
+    background: #eee;
+    font-weight: bolder;
+    text-align: center;
+    font-size: 1rem;
+    font-weight: bolder;
+    line-height: 1.8;
+    color: #666;
+    margin-bottom: 0;
+}
+
+.account a{
+    color: #512a10;
+}
+
+.account a:hover{
+    text-decoration: underline !important;
+}
+
+#close-signup-form{
+    position: absolute;
+    top: 6.5rem;
+    right: 22.5rem;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+

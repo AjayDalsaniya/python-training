@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Item Category</title>
+    {% load static %}
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/item_category.css' %}">
+
+</head>
+<body>
+
+<!-- header section start -->
+
+<header class="header">
+    <a href="#" class="logo"><i class="fas fa-mug-hot"></i> Brewer Cafe & Restro</a>
+    <form action="" class="search-form">
+        {% csrf_token %}
+        <input type="text" id="search-box" name="q" placeholder="search here..." value="{{request.GET.q}}">
+        <button title="search"><i class="fas fa-search" style="background: white;font-size: 2rem;padding-right: 12px;"></i></button>
+    </form>
+    <div class="icons">
+        <div id="search-btn" class="fas fa-search"></div>
+    </div>
+</header>
+
+<!-- header section end -->
+
+<!-- item category section start -->
+
+<section class="menu" id="menu">
+    <div class="heading">Item Category</div>
+    <div class="container box-container">
+        {% for object in object_list %}
+        <div class="box">
+            <img src="{{object.item_category_image.url}}" alt="">
+            <h3>{{object.item_category_name}}</h3>
+            <p>{{object.item_category_description}}</p>
+            <a href="{% url 'item' object.slug %}" class="link-btn">See Items</a>
+            <a href="#" class="link-btn">Read More</a>
+        </div>
+        {% empty %}
+        <h2>No item category found for "{{request.GET.q}}"! <br><br>
+            Suggestions : <br><br>
+            <ul style="line-height: 1.5;">
+                <li>Make sure that your word are correct!</li>
+                <li>Refine your search!</li>
+                <li>Try other keywords!</li>
+            </ul>
+        </h2>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- item category section end -->
+
+<script src="{% static '/js/item_category.js' %}"></script>
+</body>
+</html>

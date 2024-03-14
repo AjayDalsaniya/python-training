@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/notification.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+</head>
+<body>
+    <!-- header section start  -->
+
+    <header class="header fixed-top">
+
+        <div class="container">
+
+            <div class="row align-items-center">
+
+                <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+                <nav class="nav">
+                    <ul>
+                        <li><a href="{% url 'home' %}">Home</a></li>
+                        {% if current_user %}
+                        <li><a href="{% url 'cart' %}">Cart</a></li>
+                        {% else %}
+                        <li><a href="{% url 'login' %}" id="signin">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+
+                <div class="icons">
+                    <div id="menu-btn" class="fas fa-bars"></div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- header section end -->
+    <div class="py-5">
+        <div class="container w-100">
+            {% if userNotifications %}
+            {% for item in userNotifications %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <img src="{% static '/images/default-avatar.png' %}" alt="reviewImage"
+                                        class="rounded-circle" height="70px" width="70px">
+                                </div>
+                                <div>
+                                    <h1 class="pl-2" style="font-size: 2rem; font-weight: bolder; padding-top: 25px;">
+                                        Brewer Cafe & Restro
+                                    </h1>
+                                </div>
+                                <div class="col-md-9" style="font-size: 1.7rem;">
+                                    <span class="text-muted float-md-right p-1" style="position: relative; top: -50px; left: 250px;">
+                                        {{item.updated_at}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="" style="padding:15px 0 0 15px;">
+                                <p style="font-size: 1.7rem;">
+                                    {{item.notification_description}}
+                                </p>
+                            </div>
+                            <div style="padding: 20px 0 0 15px; font-size: 1.7rem;">
+                                Check It Out {{current_user.user_name}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% endfor %}
+            {% else %}
+                    <div class="card shadow product_data">
+                        <div class="card-body">
+                            <h3 style="font-size: 2rem;">No notifications Yet!</h3>
+                        </div>
+                    </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

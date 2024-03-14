@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table Reservation Page</title>
+    <!-- font awesome cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+
+    <!-- bootsrap cdn link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css">
+
+    <!-- iconscout cdn link -->
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- custome css link -->
+    <link rel="stylesheet" href="{% static '/css/userTableReservation.css' %}">
+
+    <link rel="stylesheet" href="{% static '/css/alertify.min.css' %}">
+</head>
+<body>
+    <!-- header section start  -->
+
+<header class="header fixed-top">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <a href="#" class="logo mr-auto"><i class="fas fa-mug-hot" style="
+                position: relative;top: -3px;"></i> Brewer Cafe & Restro</a>
+
+            <nav class="nav">
+                <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                </ul>
+            </nav>
+
+            <div class="icons">
+                <div id="menu-btn" class="fas fa-bars"></div>
+                {% comment %} <div id="cart-btn" class="fas fa-shopping-cart"></div> {% endcomment %}
+            </div>
+            
+        </div>
+
+    </div>
+
+</header>
+
+<!-- header section end -->
+
+<div class="container my-5">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h1>My Table Reservations</h1>
+                </div>
+                <div class="card-body card-data">
+                    {% if tableReservations %}
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Order Placed</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Total Price</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Status</th>
+                                <th style="font-weight: bolder; font-size: 1.8rem;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in tableReservations %}
+                            <tr class="product_data">
+                                {% csrf_token %}
+                                <input type="hidden" class="table_reservation_id" value="{{item.idtable_reservation}}">
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.table_reservation_date_time}}</td>
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.total_amount}}</td>
+                                <td style="font-weight: 500; font-size: 1.5rem;">{{item.tableRes_status}}</td>
+                                <td>
+                                    {% if item.is_table_reservation_cancel == 0 %}
+                                    <a href="{% url 'userTableReservationDetails' item.idtable_reservation %}" class="btn btn-primary mr-3" style="font-weight: bolder; font-size: 1.5rem;">View</a>
+                                    <button class="btn btn-danger delete-table-reservation" style="font-size: 1.5rem;">Cancel</button>
+                                    {% else %}
+                                     <h4>Cancelled</h4>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        {% else %}
+                        <h3>No Table Reserved!</h3>
+                    </table>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/alertify.min.js' %}"></script>
+<script src="{% static '/js/jquery-3.6.3.min.js' %}"></script>
+<script type="text/javascript">
+
+    $('.delete-table-reservation').click(function (e) { 
+        e.preventDefault();
+
+        let confirmation = confirm("Are you sure you want to cancel table reservation?");
+    
+        var table_reservation_id = $(this).closest('.product_data').find('.table_reservation_id').val();
+        var token = $('input[name=csrfmiddlewaretoken]').val();
+
+        if(confirmation){
+            $.ajax({
+                method: "POST",
+                url: "/cancelTableReservation",
+                data: {
+                    'table_reservation_id':table_reservation_id,
+                    csrfmiddlewaretoken:token
+                },
+                success: function (response) {
+                    alertify.set('notifier','position', 'top-right');
+                    $('.card-data').load(location.href + " .card-data");
+                    if (response.status) {
+                        alertify.success(response.status);
+                    }else{
+                        alertify.error(response.data);
+                    }
+                }
+            });
+        }
+    
+    });
+    </script>
+</body>
+</html>
